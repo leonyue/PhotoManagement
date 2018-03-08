@@ -13,7 +13,6 @@
 		8B59E4352050C3260081F7F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B59E4342050C3260081F7F9 /* Assets.xcassets */; };
 		8B59E4382050C3260081F7F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B59E4362050C3260081F7F9 /* LaunchScreen.storyboard */; };
 		8B59E43B2050C3260081F7F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E43A2050C3260081F7F9 /* main.m */; };
-		8B59E4422050CBDD0081F7F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B59E4412050CBDD0081F7F9 /* Images.xcassets */; };
 		8B59E4452050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		8B59E4372050C3260081F7F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B59E4392050C3260081F7F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B59E43A2050C3260081F7F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8B59E4412050CBDD0081F7F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8B59E4432050CEF20081F7F9 /* PhotoGroupCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoGroupCollectionViewCell.h; sourceTree = "<group>"; };
 		8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoGroupCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,7 +72,6 @@
 				8B59E4362050C3260081F7F9 /* LaunchScreen.storyboard */,
 				8B59E4392050C3260081F7F9 /* Info.plist */,
 				8B59E43A2050C3260081F7F9 /* main.m */,
-				8B59E4412050CBDD0081F7F9 /* Images.xcassets */,
 			);
 			path = PhotoManagement;
 			sourceTree = "<group>";
@@ -138,7 +135,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B59E4382050C3260081F7F9 /* LaunchScreen.storyboard in Resources */,
-				8B59E4422050CBDD0081F7F9 /* Images.xcassets in Resources */,
 				8B59E4352050C3260081F7F9 /* Assets.xcassets in Resources */,
 				8B59E4332050C3260081F7F9 /* Main.storyboard in Resources */,
 			);

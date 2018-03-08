@@ -15,6 +15,7 @@
 
 @property (nonatomic, copy) NSMutableArray<ALAssetsGroup *> *groups;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 
 @end
 
@@ -22,12 +23,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refresh];
+}
+
+#pragma mark - private
+- (void)refresh {
     ALAuthorizationStatus authorStatus=[ALAssetsLibrary authorizationStatus];
     
     if (authorStatus != ALAuthorizationStatusAuthorized) {
         return;
     }
     ALAssetsLibrary *assetsLibrary=[[ALAssetsLibrary alloc]init];
+    self.assetsLibrary = assetsLibrary;
     //通过URL地址获取在相册中ALAsset，该方法是异步的
     [assetsLibrary assetForURL:[NSURL URLWithString:@""] resultBlock:^(ALAsset *asset) {
         NSLog(@"asset:%@",asset);
@@ -50,18 +63,16 @@
         if (group) {
             //group不为nil执行的操作，并将继续迭代下去
             [arrayAssetsGroup addObject:group];
-            NSLog(@"group:%@",group);
         }else{
             self.groups = arrayAssetsGroup;
             [self.collectionView reloadData];
             //group为nil时执行的操作，并停止迭代，回到主线程
-//            [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:YES];
+            //            [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:YES];
         }
     } failureBlock:^(NSError *error) {
         //获取相册出错时，如该应用没有被授权访问相册时
         NSLog(@"错误Error:%@",error);
     }];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -76,6 +87,17 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoGroupCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell0" forIndexPath:indexPath];
     ALAssetsGroup *group = self.groups[indexPath.item];
+    [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        UIImage *image = [UIImage imageWithCGImage:[result aspectRatioThumbnail]];
+        if (image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.imageView.image = image;
+            });
+            *stop = YES;
+        }
+
+    }];
+//
     cell.label.text  = [group valueForProperty:ALAssetsGroupPropertyName];
     return cell;
 }

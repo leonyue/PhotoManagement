@@ -111,6 +111,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="timg" width="640" height="640"/>
+        <image name="timg" width="320" height="320"/>
     </resources>
 </document>
