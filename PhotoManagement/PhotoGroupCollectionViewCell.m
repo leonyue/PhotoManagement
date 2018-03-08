@@ -10,4 +10,8 @@
 
 @implementation PhotoGroupCollectionViewCell
 
+- (void)prepareForReuse {
+    self.imageView.image = nil;
+}
+
 @end

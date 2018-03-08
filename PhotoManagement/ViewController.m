@@ -11,7 +11,7 @@
 
 #import "PhotoGroupCollectionViewCell.h"
 
-@interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSMutableArray<ALAssetsGroup *> *groups;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -102,10 +102,28 @@
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegate,UICollectionViewDelegateFlowLayout
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ALAssetsGroup *group = self.groups[indexPath.item];
+    NSString *title = [group valueForProperty:ALAssetsGroupPropertyName];
+    NSUInteger number = group.numberOfAssets;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:[NSString stringWithFormat:@"%ld张照片",number]
+                                                   delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"下载", nil];
+    alert.tag = indexPath.item;
+    [alert show];
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat width = ([UIScreen mainScreen].bounds.size.width - 20 * 5) / 4.f;
+    
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    CGFloat width = (screenSize.width - 20 * 5) / 4.f;
     return CGSizeMake(width, width + 20);
 }
 
@@ -113,4 +131,22 @@
     return UIEdgeInsetsMake(20, 20, 20, 20);
 }
 
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        ALAssetsGroup *group = self.groups[alertView.tag];
+        dispatch_group_t group_t = dispatch_group_create();
+        
+        NSMutableArray<NSURL *> *urls = [NSMutableArray new];
+        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            NSURL *url = [result defaultRepresentation].url;
+            if (url != nil)
+            [urls addObject:url];
+            NSLog(@"enumberating");
+        }];
+        NSLog(@"end");
+        
+        
+    }
+}
 @end
