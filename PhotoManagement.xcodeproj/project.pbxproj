@@ -14,6 +14,7 @@
 		8B59E4382050C3260081F7F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B59E4362050C3260081F7F9 /* LaunchScreen.storyboard */; };
 		8B59E43B2050C3260081F7F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E43A2050C3260081F7F9 /* main.m */; };
 		8B59E4422050CBDD0081F7F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B59E4412050CBDD0081F7F9 /* Images.xcassets */; };
+		8B59E4452050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		8B59E4392050C3260081F7F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B59E43A2050C3260081F7F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8B59E4412050CBDD0081F7F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8B59E4432050CEF20081F7F9 /* PhotoGroupCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoGroupCollectionViewCell.h; sourceTree = "<group>"; };
+		8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoGroupCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,8 @@
 				8B59E42C2050C3260081F7F9 /* AppDelegate.m */,
 				8B59E42E2050C3260081F7F9 /* ViewController.h */,
 				8B59E42F2050C3260081F7F9 /* ViewController.m */,
+				8B59E4432050CEF20081F7F9 /* PhotoGroupCollectionViewCell.h */,
+				8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */,
 				8B59E4312050C3260081F7F9 /* Main.storyboard */,
 				8B59E4342050C3260081F7F9 /* Assets.xcassets */,
 				8B59E4362050C3260081F7F9 /* LaunchScreen.storyboard */,
@@ -149,6 +154,7 @@
 				8B59E4302050C3260081F7F9 /* ViewController.m in Sources */,
 				8B59E43B2050C3260081F7F9 /* main.m in Sources */,
 				8B59E42D2050C3260081F7F9 /* AppDelegate.m in Sources */,
+				8B59E4452050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
