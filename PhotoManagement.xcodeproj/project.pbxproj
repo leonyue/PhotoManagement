@@ -16,6 +16,7 @@
 		8B59E4452050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */; };
 		8B59E44B20513DD20081F7F9 /* ALAsset+RequestDefaultRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E44A20513DD20081F7F9 /* ALAsset+RequestDefaultRepresentation.m */; };
 		8B59E44E205219EB0081F7F9 /* AlbumPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E44D205219EB0081F7F9 /* AlbumPageVC.m */; };
+		8B59E451205228210081F7F9 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B59E450205228210081F7F9 /* PhotoCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		8B59E44A20513DD20081F7F9 /* ALAsset+RequestDefaultRepresentation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+RequestDefaultRepresentation.m"; sourceTree = "<group>"; };
 		8B59E44C205219EB0081F7F9 /* AlbumPageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumPageVC.h; sourceTree = "<group>"; };
 		8B59E44D205219EB0081F7F9 /* AlbumPageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumPageVC.m; sourceTree = "<group>"; };
+		8B59E44F205228210081F7F9 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		8B59E450205228210081F7F9 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,8 @@
 				8B59E44A20513DD20081F7F9 /* ALAsset+RequestDefaultRepresentation.m */,
 				8B59E4432050CEF20081F7F9 /* PhotoGroupCollectionViewCell.h */,
 				8B59E4442050CEF20081F7F9 /* PhotoGroupCollectionViewCell.m */,
+				8B59E44F205228210081F7F9 /* PhotoCollectionViewCell.h */,
+				8B59E450205228210081F7F9 /* PhotoCollectionViewCell.m */,
 				8B59E4312050C3260081F7F9 /* Main.storyboard */,
 				8B59E4342050C3260081F7F9 /* Assets.xcassets */,
 				8B59E4362050C3260081F7F9 /* LaunchScreen.storyboard */,
@@ -157,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B59E451205228210081F7F9 /* PhotoCollectionViewCell.m in Sources */,
 				8B59E44B20513DD20081F7F9 /* ALAsset+RequestDefaultRepresentation.m in Sources */,
 				8B59E4302050C3260081F7F9 /* ViewController.m in Sources */,
 				8B59E43B2050C3260081F7F9 /* main.m in Sources */,

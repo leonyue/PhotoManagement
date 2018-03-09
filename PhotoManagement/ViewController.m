@@ -127,12 +127,20 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    CGFloat width = (screenSize.width - 20 * 5) / 4.f;
+    CGFloat width = (screenSize.width - 1.f * 3) / 4.f;
     return CGSizeMake(width, width + 20);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(20, 20, 20, 20);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 1.f;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 1.f;
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -201,6 +209,7 @@ static int kkkk = 0;
     if ([segue.identifier isEqualToString:@"albumDetail"]) {
         AlbumPageVC *album = [segue destinationViewController];
         album.group = self.groups[self.collectionView.indexPathsForSelectedItems.firstObject.item];
+        album.assetsLibrary = self.assetsLibrary;///<不持有会导致无法访问
     }
 }
 @end

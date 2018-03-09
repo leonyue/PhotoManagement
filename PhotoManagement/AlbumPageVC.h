@@ -12,5 +12,6 @@
 @interface AlbumPageVC : UIViewController
 
 @property (nonatomic, strong) ALAssetsGroup *group;
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 
 @end

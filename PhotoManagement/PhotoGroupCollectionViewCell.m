@@ -10,6 +10,10 @@
 
 @implementation PhotoGroupCollectionViewCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+}
+
 - (void)prepareForReuse {
     self.imageView.image = nil;
 }

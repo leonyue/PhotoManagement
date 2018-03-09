@@ -22,6 +22,10 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.raw_asserts = [NSMutableArray new];
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+    swipe.numberOfTouchesRequired = 1;
+    [self.collectionView addGestureRecognizer:swipe];
+    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:swipe];
     // Do any additional setup after loading the view.
 }
 
@@ -37,6 +41,12 @@
         [weakSelf.collectionView reloadData];
     });
 
+}
+
+#pragma mark - touch
+
+- (void)swipe:(UISwipeGestureRecognizer *)swipe {
+    NSLog(@"tap.state:%ld",swipe.state);
 }
 
 #pragma mark - UICollectionViewDataSource
