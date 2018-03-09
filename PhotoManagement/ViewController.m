@@ -11,6 +11,7 @@
 
 #import "PhotoGroupCollectionViewCell.h"
 #import "ALAsset+RequestDefaultRepresentation.h"
+#import "AlbumPageVC.h"
 
 @interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIAlertViewDelegate>
 
@@ -106,6 +107,7 @@
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    return;
     ALAssetsGroup *group = self.groups[indexPath.item];
     NSString *title = [group valueForProperty:ALAssetsGroupPropertyName];
     NSUInteger number = group.numberOfAssets;
@@ -192,5 +194,13 @@ static int kkkk = 0;
     kkkk ++;
     NSLog(@"kkkk:%ld",kkkk);
 //    NSLog(@"notif:%@",notif)2;
+}
+
+#pragma mark - UINavigationDelegate
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"albumDetail"]) {
+        AlbumPageVC *album = [segue destinationViewController];
+        album.group = self.groups[self.collectionView.indexPathsForSelectedItems.firstObject.item];
+    }
 }
 @end

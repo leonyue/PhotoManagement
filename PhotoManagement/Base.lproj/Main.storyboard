@@ -65,6 +65,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="S5r-kg-eos" id="Liv-Aa-049"/>
                                             <outlet property="label" destination="6l6-Av-l9z" id="cVl-zQ-NWu"/>
+                                            <segue destination="d62-ww-d3x" kind="show" identifier="albumDetail" id="8iZ-jh-XJr"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -90,6 +91,71 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="375.19999999999999" y="88.605697151424295"/>
+        </scene>
+        <!--Album PageVC-->
+        <scene sceneID="FDA-Rf-i52">
+            <objects>
+                <viewController id="d62-ww-d3x" customClass="AlbumPageVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U1Z-rN-1Rp"/>
+                        <viewControllerLayoutGuide type="bottom" id="3vN-5i-3GM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="e7A-0f-e2k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zVp-zp-PaI">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="pAa-co-UCe">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell0" id="ouR-6s-o3g">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="123" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timg" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-BL-jYz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="DeT-BL-jYz" firstAttribute="leading" secondItem="ouR-6s-o3g" secondAttribute="leading" id="XBv-ZA-nKk"/>
+                                            <constraint firstAttribute="trailing" secondItem="DeT-BL-jYz" secondAttribute="trailing" id="oRP-O3-qPk"/>
+                                            <constraint firstAttribute="bottom" secondItem="DeT-BL-jYz" secondAttribute="bottom" id="uTM-nt-NGy"/>
+                                            <constraint firstItem="DeT-BL-jYz" firstAttribute="top" secondItem="ouR-6s-o3g" secondAttribute="top" id="yRz-WA-0Xq"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="d62-ww-d3x" id="gDJ-4E-obt"/>
+                                    <outlet property="delegate" destination="d62-ww-d3x" id="2j8-rJ-Pv8"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zVp-zp-PaI" firstAttribute="leading" secondItem="e7A-0f-e2k" secondAttribute="leading" id="8uF-RX-WNx"/>
+                            <constraint firstAttribute="trailing" secondItem="zVp-zp-PaI" secondAttribute="trailing" id="TRq-QJ-aE8"/>
+                            <constraint firstItem="3vN-5i-3GM" firstAttribute="top" secondItem="zVp-zp-PaI" secondAttribute="bottom" id="TTG-YV-BQA"/>
+                            <constraint firstItem="zVp-zp-PaI" firstAttribute="top" secondItem="U1Z-rN-1Rp" secondAttribute="bottom" id="W3T-sc-dht"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="zVp-zp-PaI" id="DPZ-Ik-VmP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tMB-uq-IvB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1094" y="89"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lt5-VY-PI9">
