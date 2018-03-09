@@ -10,6 +10,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "PhotoGroupCollectionViewCell.h"
+#import "ALAsset+RequestDefaultRepresentation.h"
 
 @interface ViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIAlertViewDelegate>
 
@@ -23,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsLibraryChangedNotif:) name:ALAssetsLibraryChangedNotification object:nil];
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -139,14 +141,56 @@
         
         NSMutableArray<NSURL *> *urls = [NSMutableArray new];
         [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            NSURL *url = [result defaultRepresentation].url;
-            if (url != nil)
-            [urls addObject:url];
-            NSLog(@"enumberating");
+            
+            id type = [result valueForProperty:ALAssetPropertyType];
+            [result requestDefaultRepresentation];
+//            NSURL *url = [result defaultRepresentation].url;
+//            NSLog(@"type is %@, url is %@",type,url);
+//            if (url != nil) {
+//                NSLog(@"added");
+//                [urls addObject:url];
+//            } else {
+//            }
         }];
         NSLog(@"end");
-        
+        return;
+        for (NSUInteger i =0; i<urls.count; i++) {
+            NSURL *url = urls[i];
+            dispatch_group_async(group_t, dispatch_get_main_queue(), ^{
+                dispatch_group_enter(group_t);
+                [self.assetsLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
+                    
+                    ALAssetRepresentation *image_representation = [asset defaultRepresentation];
+                    Byte *buffer = (Byte*)malloc(image_representation.size);
+                    NSUInteger length = [image_representation getBytes:buffer fromOffset: 0.0 length:image_representation.size error:nil];
+                    if (length != 0)  {
+                        NSData *adata = [[NSData alloc] initWithBytesNoCopy:buffer length:image_representation.size freeWhenDone:YES];
+                        
+                        
+                        [self.assetsLibrary writeImageDataToSavedPhotosAlbum:adata metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+                            NSLog(@"writeImageData error:%@",error);
+                            dispatch_group_leave(group_t);
+                        }];
+                    } else {
+                        NSLog(@"length = 0");
+                        dispatch_group_leave(group_t);
+                    }
+                } failureBlock:^(NSError *error) {
+                    NSLog(@"failure:%@",error);
+                    dispatch_group_leave(group_t);
+                }];
+            });
+        }
+        return;
+
         
     }
+}
+
+static int kkkk = 0;
+- (void)assetsLibraryChangedNotif:(NSNotification *)notif {
+    kkkk ++;
+    NSLog(@"kkkk:%ld",kkkk);
+//    NSLog(@"notif:%@",notif)2;
 }
 @end
