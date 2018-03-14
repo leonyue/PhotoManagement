@@ -9,6 +9,8 @@
 #import "AlbumPageVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
+#import "ALAsset+RequestDefaultRepresentation.h"
+
 @interface AlbumPageVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSMutableArray<ALAsset *> *raw_asserts;
@@ -22,10 +24,14 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.raw_asserts = [NSMutableArray new];
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
-    swipe.numberOfTouchesRequired = 1;
-    [self.collectionView addGestureRecognizer:swipe];
-    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:swipe];
+//    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+//    swipe.numberOfTouchesRequired = 1;
+//    [self.collectionView addGestureRecognizer:swipe];
+//    [self.collectionView.panGestureRecognizer requireGestureRecognizerToFail:swipe];
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsLibraryChangedNotif:) name:ALAssetsLibraryChangedNotification object:nil];
+    ALAssetsLibrary *assetsLibrary=[[ALAssetsLibrary alloc]init];
+    self.assetsLibrary = assetsLibrary;
     // Do any additional setup after loading the view.
 }
 
@@ -62,11 +68,22 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell0" forIndexPath:indexPath];
     UIImageView *iv = [cell viewWithTag:123];
     ALAsset *raw = self.raw_asserts[indexPath.item];
+    
+#ifdef DEBUG
+    iv.backgroundColor = [UIColor darkGrayColor];
+#else
     iv.image = [UIImage imageWithCGImage:raw.aspectRatioThumbnail];
-    ALAssetRepresentation *rep = [raw defaultRepresentation];
-    if (rep != nil) {
-    }
+#endif
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ALAsset *raw = self.raw_asserts[indexPath.item];
+    [self requestDefaultRepresentation:raw withSuccessBlock:^(ALAssetRepresentation *defaultRepresentation) {
+        
+    }];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -88,6 +105,16 @@
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 1.f;
+}
+
+#pragma public
+- (void)requestDefaultRepresentation:(ALAsset *)result withSuccessBlock:(void(^)(ALAssetRepresentation *defaultRepresentation))block {
+    [result requestDefaultRepresentation];
+}
+
+- (void)assetsLibraryChangedNotif:(NSNotification *)notif {
+    NSLog(@"kkkk:%ld",1);
+    //    NSLog(@"notif:%@",notif)2;
 }
 
 @end

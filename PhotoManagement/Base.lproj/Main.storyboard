@@ -39,7 +39,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timg" translatesAutoresizingMaskIntoConstraints="NO" id="S5r-kg-eos">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="db_folder_public" translatesAutoresizingMaskIntoConstraints="NO" id="S5r-kg-eos">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="S5r-kg-eos" secondAttribute="height" id="RKP-2A-inR"/>
@@ -121,12 +121,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="123" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timg" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-BL-jYz">
+                                                <imageView userInteractionEnabled="NO" tag="123" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-BL-jYz">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="DeT-BL-jYz" firstAttribute="leading" secondItem="ouR-6s-o3g" secondAttribute="leading" id="XBv-ZA-nKk"/>
                                             <constraint firstAttribute="trailing" secondItem="DeT-BL-jYz" secondAttribute="trailing" id="oRP-O3-qPk"/>
@@ -177,6 +176,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="timg" width="320" height="320"/>
+        <image name="db_folder_public" width="32" height="32"/>
+        <image name="loading" width="46" height="46"/>
     </resources>
 </document>

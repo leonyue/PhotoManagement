@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsLibraryChangedNotif:) name:ALAssetsLibraryChangedNotification object:nil];
+    self.title = @"相册";
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -33,6 +33,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refresh];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsLibraryChangedNotif:) name:ALAssetsLibraryChangedNotification object:nil];
 }
 
 #pragma mark - private
@@ -90,6 +95,12 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoGroupCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell0" forIndexPath:indexPath];
     ALAssetsGroup *group = self.groups[indexPath.item];
+    
+//    cell.imageView.layer.contents = [UIImage imageNamed:@"db_folder_public"];
+#ifdef DEBUG
+    cell.imageView.backgroundColor = [UIColor blackColor];
+#else
+    cell.imageView.image = [UIImage imageNamed:@"db_folder_public.png"];
     [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
         UIImage *image = [UIImage imageWithCGImage:[result aspectRatioThumbnail]];
         if (image) {
@@ -100,6 +111,7 @@
         }
 
     }];
+#endif
 //
     cell.label.text  = [group valueForProperty:ALAssetsGroupPropertyName];
     return cell;
@@ -107,7 +119,6 @@
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return;
     ALAssetsGroup *group = self.groups[indexPath.item];
     NSString *title = [group valueForProperty:ALAssetsGroupPropertyName];
     NSUInteger number = group.numberOfAssets;
@@ -147,23 +158,32 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         ALAssetsGroup *group = self.groups[alertView.tag];
-        dispatch_group_t group_t = dispatch_group_create();
-        
-        NSMutableArray<NSURL *> *urls = [NSMutableArray new];
-        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            
-            id type = [result valueForProperty:ALAssetPropertyType];
-            [result requestDefaultRepresentation];
-//            NSURL *url = [result defaultRepresentation].url;
-//            NSLog(@"type is %@, url is %@",type,url);
-//            if (url != nil) {
-//                NSLog(@"added");
-//                [urls addObject:url];
-//            } else {
-//            }
-        }];
-        NSLog(@"end");
-        return;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSUInteger requestCount = 0;
+            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                id dr = [result defaultRepresentation];
+                if (dr != nil) {
+                } else {
+                    NSLog(@"request");
+                    requestCount++;
+                    [result requestDefaultRepresentation];
+                }
+            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                            self.title = [NSString stringWithFormat:@"%@(%ld)",[group valueForProperty:ALAssetsGroupPropertyName],requestCount];
+            });
+        });
+    }
+}
+        /*
+         
+         dispatch_group_t group_t = dispatch_group_create();
+         
+         NSMutableArray<NSURL *> *urls = [NSMutableArray new];
+                         id type = [result valueForProperty:ALAssetPropertyType];
+         
+         
+         
         for (NSUInteger i =0; i<urls.count; i++) {
             NSURL *url = urls[i];
             dispatch_group_async(group_t, dispatch_get_main_queue(), ^{
@@ -191,25 +211,27 @@
                 }];
             });
         }
-        return;
-
+         */
         
-    }
-}
+
 
 static int kkkk = 0;
 - (void)assetsLibraryChangedNotif:(NSNotification *)notif {
     kkkk ++;
     NSLog(@"kkkk:%ld",kkkk);
-//    NSLog(@"notif:%@",notif)2;
+    NSLog(@"notif:%@",notif);
 }
 
 #pragma mark - UINavigationDelegate
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"albumDetail"]) { return  NO;}
+    return YES;
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"albumDetail"]) {
         AlbumPageVC *album = [segue destinationViewController];
         album.group = self.groups[self.collectionView.indexPathsForSelectedItems.firstObject.item];
-        album.assetsLibrary = self.assetsLibrary;///<不持有会导致无法访问
     }
 }
 @end

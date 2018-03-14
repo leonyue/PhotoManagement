@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class ALAssetsGroup;
+@class ALAssetsLibrary;
 @interface AlbumPageVC : UIViewController
 
 @property (nonatomic, strong) ALAssetsGroup *group;
